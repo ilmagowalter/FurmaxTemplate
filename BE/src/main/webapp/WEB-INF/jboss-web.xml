@@ -1,0 +1,4 @@
+<jboss-web>
+  	<context-root>furmaxtemplate</context-root>
+<!--   	<security-domain>jwt-realm</security-domain> -->
+</jboss-web>

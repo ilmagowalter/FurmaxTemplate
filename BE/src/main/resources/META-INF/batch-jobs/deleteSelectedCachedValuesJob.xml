@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="deleteSelectedCachedValuesJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd" version="1.0">
+    <flow id="flow">
+	    <step id="step1" next="step2">
+	        <batchlet ref="deleteSelectedCachedValuesBatchlet">
+	        	 <properties>
+	        	 	 <property name="deleteselectedcached.flowId" value="#{jobParameters['deleteselectedcached.flowId']}" />	        	 
+	        	 	 <property name="deleteselectedcached.schemaId" value="#{jobParameters['deleteselectedcached.schemaId']}" />	        	 
+	        	 	 <property name="deleteselectedcached.userId" value="#{jobParameters['deleteselectedcached.userId']}" />	        	 
+	        	 	 <property name="deleteselectedcached.valueList" value="#{jobParameters['deleteselectedcached.valueList']}" />
+	        	 	 <property name="deleteselectedcached.importTest" value="#{jobParameters['deleteselectedcached.importTest']}" />
+	        	 	 <property name="deleteselectedcached.regionId" value="#{jobParameters['deleteselectedcached.regionId']}" />
+	        	 	 <property name="deleteselectedcached.companyId" value="#{jobParameters['deleteselectedcached.companyId']}" />
+	        	 	 <property name="deleteselectedcached.structureId" value="#{jobParameters['deleteselectedcached.structureId']}" />        	 	 
+	        	 </properties>
+	        </batchlet>
+	    </step>
+	    <step id="step2">
+	    	<batchlet ref="notificationBatchlet">
+	    	</batchlet>        
+	    </step>
+    </flow>
+</job>

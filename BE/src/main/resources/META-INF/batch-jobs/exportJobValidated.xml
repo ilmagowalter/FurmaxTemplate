@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="exportJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd" version="1.0">
+    <flow id="flow">
+	    <step id="step1" next="step2">
+	        <batchlet ref="exportValidatedBatchlet">
+	        	 <properties>
+	        	 	 <property name="export.jobIdEsito" value="#{jobParameters['export.jobIdEsito']}" />	        	 
+	        	 	 <property name="export.userId" value="#{jobParameters['export.userId']}" />
+	        	 	 <property name="export.databaseName" value="#{jobParameters['export.databaseName']}" />	        	 	 
+	        	 	 <property name="export.baseCollection" value="#{jobParameters['export.baseCollection']}" />
+	        	 	 <property name="export.elementsCollection" value="#{jobParameters['export.elementsCollection']}" />
+	        	 	 <property name="export.sessionCollection" value="#{jobParameters['export.sessionCollection']}" />
+	        	 	 <property name="export.nativeExport" value="#{jobParameters['export.nativeExport']}" />
+	        	 	 <property name="export.encryptedData" value="#{jobParameters['export.encryptedData']}" />
+	        	 </properties>
+	        </batchlet>
+	    </step>
+	    <step id="step2">
+	    	<batchlet ref="notificationBatchlet">
+	    	</batchlet>        
+	    </step>
+    </flow>
+</job>
+

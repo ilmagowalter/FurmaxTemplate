@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="validationJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd" version="1.0">
+    <flow id="flow">
+	    <step id="step1" next="step2">
+	        <batchlet ref="validationBatchlet">
+	        	 <properties>
+	        	 	 <property name="validation.userId" value="#{jobParameters['validation.userId']}" />
+	        	 	 <property name="validation.jobIdSessioneControllo" value="#{jobParameters['validation.jobIdSessioneControllo']}" />
+	        	 	 <property name="validation.flowId" value="#{jobParameters['validation.flowId']}" />
+	        	 	 <property name="validation.schemaId" value="#{jobParameters['validation.schemaId']}" />
+	        	 	 <property name="validation.fromDate" value="#{jobParameters['validation.fromDate']}" />
+	        	 	 <property name="validation.toDate" value="#{jobParameters['validation.toDate']}" />
+	        	 	 <property name="validation.usersId" value="#{jobParameters['validation.usersId']}" />
+	        	 	 <property name="validation.filenames" value="#{jobParameters['validation.filenames']}" />
+	        	 </properties>
+	        </batchlet>
+	    </step>
+	    <step id="step2">
+	    	<batchlet ref="notificationBatchlet">
+	    	</batchlet>        
+	    </step>
+    </flow>
+</job>
+

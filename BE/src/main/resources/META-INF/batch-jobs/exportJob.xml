@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="exportJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd" version="1.0">
+    <flow id="flow">
+	    <step id="step1" next="step2">
+	        <batchlet ref="exportBatchlet">
+	        	 <properties>
+	        	 	 <property name="export.fileName" value="#{jobParameters['export.fileName']}" />
+	        	 	 <property name="export.startingArrayElement" value="#{jobParameters['export.startingArrayElement']}" />
+	        	 	 <property name="export.customerId" value="#{jobParameters['export.customerId']}" />
+	        	 	 <property name="export.userId" value="#{jobParameters['export.userId']}" />
+	        	 	 <property name="export.flowId" value="#{jobParameters['export.flowId']}" />
+	        	 	 <property name="export.schemaId" value="#{jobParameters['export.schemaId']}" />
+	        	 	 <property name="export.collectionName" value="#{jobParameters['export.collectionName']}" />
+	        	 	 <property name="export.elementsCollection" value="#{jobParameters['export.elementsCollection']}" />
+	        	 	 <property name="export.databaseName" value="#{jobParameters['export.databaseName']}" />
+	        	 	 <property name="export.repeatElement" value="#{jobParameters['export.repeatElement']}" />
+	        	 	 <property name="export.extensionId" value="#{jobParameters['export.extensionId']}" />
+	        	 	 <property name="export.referencePeriod" value="#{jobParameters['export.referencePeriod']}" />
+	        	 	 <property name="export.referenceYear" value="#{jobParameters['export.referenceYear']}" />
+	        	 	 <property name="export.structureId" value="#{jobParameters['export.structureId']}" />
+	        	 	 <property name="export.companyId" value="#{jobParameters['export.companyId']}" />
+	        	 	 <property name="export.regionId" value="#{jobParameters['export.regionId']}" />
+	        	 	 <property name="export.importTest" value="#{jobParameters['export.importTest']}" />
+	        	 	 <property name="export.importXml" value="#{jobParameters['export.importXml']}" />
+	        	 	 <property name="export.errorReportTxt" value="#{jobParameters['export.errorReportTxt']}" />
+	        	 	 
+	        	 	 <property name="export.jsonFilter" value="#{jobParameters['export.jsonFilter']}" />
+	        	 	 <property name="export.fromDate" value="#{jobParameters['export.fromDate']}" />
+	        	 	 <property name="export.toDate" value="#{jobParameters['export.toDate']}" />
+	        	 	 <property name="export.userIdList" value="#{jobParameters['export.userIdList']}" />
+	        	 	 <property name="export.progressive" value="#{jobParameters['export.progressive']}" />
+	        	 	 <property name="export.stato" value="#{jobParameters['export.stato']}" />
+	        	 	 <property name="export.exportType" value="#{jobParameters['export.exportType']}" />
+	        	 	 <property name="export.jobIdEsito" value="#{jobParameters['export.jobIdEsito']}" />
+	        	 	 <property name="export.sort" value="#{jobParameters['export.sort']}" />
+	        	 	 <property name="export.listaCampi" value="#{jobParameters['export.listaCampi']}" />
+	        	 	 <property name="export.listaCampiErrori" value="#{jobParameters['export.listaCampiErrori']}" />
+	        	 	 <property name="export.objectIds" value="#{jobParameters['export.objectIds']}" />	        	 	 
+	        	 	 <property name="export.idObjectParent" value="#{jobParameters['export.idObjectParent']}" />
+	        	 	 
+	        	 	 <property name="export.yearFrom" value="#{jobParameters['export.yearFrom']}" />
+	        	 	 <property name="export.yearTo" value="#{jobParameters['export.yearTo']}" />
+	        	 	 <property name="export.periodFrom" value="#{jobParameters['export.periodFrom']}" />	        	 	 
+	        	 	 <property name="export.periodTo" value="#{jobParameters['export.periodTo']}" />
+	        	 	 <property name="export.controlIds" value="#{jobParameters['export.controlIds']}" />
+	        	 	 <property name="export.errorIds" value="#{jobParameters['export.errorIds']}" />
+	        	 	 <property name="export.objectIdsError" value="#{jobParameters['export.objectIdsError']}" />	
+
+	        	 	 <property name="export.jobIdAzione" value="#{jobParameters['export.jobIdAzione']}" />
+	        	 	 <property name="export.listaAzioni" value="#{jobParameters['export.listaAzioni']}" />
+	        	 	 <property name="export.listaLivelliUtente" value="#{jobParameters['export.listaLivelliUtente']}" />
+	        	 	 
+	        	 	 <property name="export.encryptedData" value="#{jobParameters['export.encryptedData']}" />
+	        	 	 
+	        	 	 
+	        	 </properties>
+	        </batchlet>
+	    </step>
+	    <step id="step2">
+	    	<batchlet ref="notificationBatchlet">
+	    	</batchlet>        
+	    </step>
+    </flow>
+</job>

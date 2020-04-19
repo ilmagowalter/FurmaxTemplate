@@ -1,0 +1,7 @@
+{
+  "sourceFolder": "src/gen/java",
+  "modelPackage": "io.swagger.model",
+  "apiPackage":   "io.swagger.api",
+  "interfaceOnly": true,
+  "hideGenerationTimestamp" : true
+}

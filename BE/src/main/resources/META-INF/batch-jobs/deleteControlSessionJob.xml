@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="deletecontrolsessionJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd" version="1.0">
+    <flow id="flow">
+	    <step id="step1" next="step2">
+	        <batchlet ref="deleteControlSessionBatchlet">
+	        	 <properties>
+	        	 	 <property name="delete.userId" value="#{jobParameters['delete.userId']}" />
+	        	 	 <property name="delete.jobId" value="#{jobParameters['delete.jobId']}" />
+	        	 	 <property name="delete.schemaId" value="#{jobParameters['delete.schemaId']}" />
+	        	 </properties>
+	        </batchlet>
+	    </step>
+	    <step id="step2">
+	    	<batchlet ref="notificationBatchlet">
+	    	</batchlet>        
+	    </step>
+    </flow>
+</job>
+

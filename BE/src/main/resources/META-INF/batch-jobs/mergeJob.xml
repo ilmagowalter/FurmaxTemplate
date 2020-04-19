@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="exportJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd" version="1.0">
+    <flow id="flow">
+	    <step id="step1" next="step2">
+	        <batchlet ref="mergeBatchlet">
+	        	 <properties>
+	        	 	 <property name="merge.flowId" value="#{jobParameters['merge.flowId']}" />	        	 
+	        	 	 <property name="merge.schemaId" value="#{jobParameters['merge.schemaId']}" />	        	 
+	        	 	 <property name="merge.userId" value="#{jobParameters['merge.userId']}" />	        	 
+	        	 	 <property name="merge.collectionName" value="#{jobParameters['merge.collectionName']}" />
+	        	 	 <property name="merge.elementsCollection" value="#{jobParameters['merge.elementsCollection']}" />
+	        	 	 <property name="merge.databaseName" value="#{jobParameters['merge.databaseName']}" />
+	        	 	 <property name="merge.state" value="#{jobParameters['merge.state']}" />
+	        	 	 
+	        	 	 <property name="merge.referencePeriod" value="#{jobParameters['merge.referencePeriod']}" />
+	        	 	 <property name="merge.referenceYear" value="#{jobParameters['merge.referenceYear']}" />
+	        	 	 <property name="merge.structureId" value="#{jobParameters['merge.structureId']}" />
+	        	 	 <property name="merge.companyId" value="#{jobParameters['merge.companyId']}" />
+	        	 	 <property name="merge.regionId" value="#{jobParameters['merge.regionId']}" />
+
+	        	 	 <property name="merge.regionValue" value="#{jobParameters['merge.regionValue']}" />
+	        	 	 <property name="merge.companyValue" value="#{jobParameters['merge.companyValue']}" />
+	        	 	 <property name="merge.structureValue" value="#{jobParameters['merge.structureValue']}" />	        	 	 
+	        	 	 
+	        	 </properties>
+	        </batchlet>
+	    </step>
+	    <step id="step2">
+	    	<batchlet ref="notificationBatchlet">
+	    	</batchlet>        
+	    </step>
+    </flow>
+</job>
+

@@ -1,0 +1,1 @@
+gradle clean build & jboss-cli.bat --connect --controller=remote+http://localhost:9990 -u=admin -p=gpi2018 --command="deploy build/libs/siact.war --force"

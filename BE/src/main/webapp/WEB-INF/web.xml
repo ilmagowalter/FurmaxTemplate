@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:j2ee="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee    http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<context-param>
+		<param-name>quartz:config-file</param-name>
+		<param-value>it/gpi/furmaxtemplate/quartz/quartz.properties</param-value>
+	</context-param>
+	<context-param>
+		<param-name>quartz:shutdown-on-unload</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>quartz:wait-on-shutdown</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>quartz:start-scheduler-on-load</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>ApiOriginFilter</filter-name>
+		<filter-class>io.swagger.api.ApiOriginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ApiOriginFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>Jersey2Config</servlet-name>
+		<servlet-class>io.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
+		<init-param>
+			<param-name>api.version</param-name>
+			<param-value>1.0.0</param-value>
+		</init-param>
+		<init-param>
+			<param-name>swagger.api.basepath</param-name>
+			<param-value>http://localhost:8080/rest/v1/</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<!-- REST services without auth -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>no-auth-login</web-resource-name>
+			<url-pattern>/rest/login</url-pattern>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+	</security-constraint>
+
+	<!-- REST services with auth -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>auth-rest</web-resource-name>
+			<url-pattern>/rest/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>DELETE</http-method>
+			<http-method>PUT</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>rest</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-role>
+		<role-name>rest</role-name>
+	</security-role>
+
+	<login-config>
+		<auth-method>BEARER_TOKEN</auth-method>
+		<realm-name>jwt-realm</realm-name>
+	</login-config>
+
+</web-app>

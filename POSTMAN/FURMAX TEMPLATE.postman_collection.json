@@ -1,0 +1,386 @@
+{
+	"info": {
+		"_postman_id": "cbe31aa8-5e84-4c0e-9ffb-26c0655965cf",
+		"name": "FURMAX TEMPLATE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad95e533-03d5-4d6f-b93c-b81923c30942",
+								"exec": [
+									"pm.test(\"Test login\", function () {\r",
+									"    if (pm.response.code !== 200) {\r",
+									"        postman.setNextRequest(null);\r",
+									"        throw new Error(\"Response diversa da 200\");\r",
+									"    }\r",
+									"    var response = JSON.parse(responseBody);\r",
+									"    if (response.token === null) {\r",
+									"        postman.setNextRequest(null);\r",
+									"        throw new Error(\"token null\");\r",
+									"    }\r",
+									"    if (response.utente === null || response.utente.idUtente === null) {\r",
+									"        postman.setNextRequest(null);\r",
+									"        throw new Error(\"idUtente null\");\r",
+									"    }\r",
+									"    // set env variables\r",
+									"    postman.setEnvironmentVariable(\"token\",response.token);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"mfurnari\",\r\n  \"password\": \"q1w2e3r4t5\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseHost}}/furmaxtemplate/rest/login",
+							"host": [
+								"{{baseHost}}"
+							],
+							"path": [
+								"furmaxtemplate",
+								"rest",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login wrong parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad95e533-03d5-4d6f-b93c-b81923c30942",
+								"exec": [
+									"pm.test(\"Test Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"wrong\",\r\n  \"password\": \"wrongPassword\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseHost}}/furmaxtemplate/rest/login",
+							"host": [
+								"{{baseHost}}"
+							],
+							"path": [
+								"furmaxtemplate",
+								"rest",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login no parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad95e533-03d5-4d6f-b93c-b81923c30942",
+								"exec": [
+									"pm.test(\"Test Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseHost}}/furmaxtemplate/rest/login",
+							"host": [
+								"{{baseHost}}"
+							],
+							"path": [
+								"furmaxtemplate",
+								"rest",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a7de5a0f-ad2e-493a-a9e1-43fd1210b425",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "025279ed-2f8f-4100-9f32-2faa991be670",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "utente",
+			"item": [
+				{
+					"name": "utente lifecycle",
+					"item": [
+						{
+							"name": "crea utente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9657940e-8dad-4dc7-9990-935273c6b0ec",
+										"exec": [
+											"pm.test(\"HTTP STATUS 200\", function () {",
+											"    //pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"User created correctly\", function () {",
+											"    var response = JSON.parse(responseBody);",
+											"    // note non è obbligatorio",
+											"    pm.expect(response.idUtente !== null);",
+											"    pm.expect(response.nomeUtente !== null);",
+											"    pm.expect(response.nome !== null);",
+											"    pm.expect(response.cognome !== null);",
+											"    pm.expect(response.email !== null);",
+											"    pm.expect(response.telefono !== null);",
+											"    postman.setEnvironmentVariable(\"idUtente\", response.idUtente);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"idUtente\": 0,\r\n  \"nomeUtente\": \"{{$randomInt}}{{$randomInt}}{{$randomInt}}{{$randomInt}}{{$randomInt}}\",\r\n  \"email\": \"test{{$randomInt}}{{$randomInt}}{{$randomInt}}{{$randomInt}}@test.it\",\r\n  \"nome\": \"test\",\r\n  \"cognome\": \"test\",\r\n  \"telefono\": \"555-555-555\",\r\n  \"abilitato\": true\r\n}"
+								},
+								"url": {
+									"raw": "{{baseHost}}/furmaxtemplate/rest/utente/",
+									"host": [
+										"{{baseHost}}"
+									],
+									"path": [
+										"furmaxtemplate",
+										"rest",
+										"utente",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "modifica utente non esistente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "58c56931-5b75-4358-8d8b-989d929f04b0",
+										"exec": [
+											"pm.test(\"HTTP STATUS 200\", function () {",
+											"    //pm.response.to.have.status(400);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"idUtente\": 0,\r\n  \"nomeUtente\": \"{{$randomInt}}{{$randomInt}}{{$randomInt}}{{$randomInt}}{{$randomInt}}\",\r\n  \"email\": \"test{{$randomInt}}{{$randomInt}}{{$randomInt}}{{$randomInt}}@test.it\",\r\n  \"nome\": \"test\",\r\n  \"cognome\": \"test\",\r\n  \"telefono\": \"666-666-666\",\r\n  \"abilitato\": true\r\n}"
+								},
+								"url": {
+									"raw": "{{baseHost}}/furmaxtemplate/rest/utente/{{idUtente}}",
+									"host": [
+										"{{baseHost}}"
+									],
+									"path": [
+										"furmaxtemplate",
+										"rest",
+										"utente",
+										"{{idUtente}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "elenco utenti",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9657940e-8dad-4dc7-9990-935273c6b0ec",
+								"exec": [
+									"pm.test(\"HTTP STATUS 200\", function () {",
+									"    //pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idUtente\": 0,\r\n  \"nomeUtente\": \"{{$randomInt}}{{$randomInt}}{{$randomInt}}{{$randomInt}}{{$randomInt}}\",\r\n  \"email\": \"test{{$randomInt}}{{$randomInt}}{{$randomInt}}{{$randomInt}}@test.it\",\r\n  \"nome\": \"test\",\r\n  \"cognome\": \"test\",\r\n  \"telefono\": \"555-555-555\",\r\n  \"abilitato\": true\r\n}"
+						},
+						"url": {
+							"raw": "{{baseHost}}/furmaxtemplate/rest/utente/?pageNumber=1&pageSize=2",
+							"host": [
+								"{{baseHost}}"
+							],
+							"path": [
+								"furmaxtemplate",
+								"rest",
+								"utente",
+								""
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "61117353-62ed-445b-ba45-21eb968fc04e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "13728df4-d95d-427a-ace3-da9fde4734bc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

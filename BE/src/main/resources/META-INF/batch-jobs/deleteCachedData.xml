@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="deleteCachedDataJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd" version="1.0">
+    <flow id="flow">
+	    <step id="step1" next="step2">
+	        <batchlet ref="deleteCachedBatchlet">
+	        	 <properties>
+	        	 	 <property name="deletecached.flowId" value="#{jobParameters['deletecached.flowId']}" />	        	 
+	        	 	 <property name="deletecached.schemaId" value="#{jobParameters['deletecached.schemaId']}" />	        	 
+	        	 	 <property name="deletecached.userId" value="#{jobParameters['deletecached.userId']}" />	        	 
+	        	 	 <property name="deletecached.collectionName" value="#{jobParameters['deletecached.collectionName']}" />
+	        	 	 <property name="deletecached.elementsCollection" value="#{jobParameters['deletecached.elementsCollection']}" />
+	        	 	 <property name="deletecached.databaseName" value="#{jobParameters['deletecached.databaseName']}" />
+	        	 	 
+	        	 	 <property name="deletecached.sortFilter" value="#{jobParameters['deletecached.sortFilter']}" />
+	        	 	 <property name="deletecached.jsonFilter" value="#{jobParameters['deletecached.jsonFilter']}" />
+	        	 	 <property name="deletecached.dataInserimentoDa" value="#{jobParameters['deletecached.dataInserimentoDa']}" />
+	        	 	 <property name="deletecached.dataInserimentoA" value="#{jobParameters['deletecached.dataInserimentoA']}" />
+	        	 	 <property name="deletecached.nomiFile" value="#{jobParameters['deletecached.nomiFile']}" />
+	        	 	 <property name="deletecached.progressivo" value="#{jobParameters['deletecached.progressivo']}" />
+	        	 	 
+	        	 	 <property name="deletecached.importTest" value="#{jobParameters['deletecached.importTest']}" />
+	        	 	 <property name="deletecached.regionId" value="#{jobParameters['deletecached.regionId']}" />
+	        	 	 <property name="deletecached.companyId" value="#{jobParameters['deletecached.companyId']}" />
+	        	 	 <property name="deletecached.structureId" value="#{jobParameters['deletecached.structureId']}" />
+	        	 </properties>
+	        </batchlet>
+	    </step>
+	    <step id="step2">
+	    	<batchlet ref="notificationBatchlet">
+	    	</batchlet>        
+	    </step>
+    </flow>
+</job>
+

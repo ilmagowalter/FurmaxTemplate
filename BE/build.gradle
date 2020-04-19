@@ -1,0 +1,153 @@
+buildscript {
+    repositories {
+        mavenCentral()
+     	jcenter()   
+    }
+}
+plugins {
+    id 'war'  
+    id "org.hidetake.swagger.generator" version "2.18.1"
+}
+
+def defaultEncoding = 'UTF-8'
+
+compileJava   {
+  sourceCompatibility = '1.8'
+  targetCompatibility = '1.8'
+  options.encoding = defaultEncoding
+}
+
+compileTestJava {
+  options.encoding = defaultEncoding
+}
+
+processResources {
+    filteringCharset defaultEncoding
+}
+
+repositories {
+    //mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    providedCompile 'javax.annotation:javax.annotation-api:1.2',
+    				'javax:javaee-api:7.0',
+    				'javax.validation:validation-api:2.0.0.Final',
+    				'org.jboss.resteasy:resteasy-jaxrs:3.0.11.Final',
+    				'org.jboss.resteasy:jaxrs-api:3.0.11.Final',
+    				'org.jboss.resteasy:resteasy-validator-provider-11:3.0.11.Final',
+    				'org.jboss.resteasy:resteasy-multipart-provider:3.0.11.Final',
+    				'org.jboss.spec.javax.servlet:jboss-servlet-api_3.0_spec:1.0.0.Final'
+    compile         'io.swagger:swagger-annotations:1.5.21',
+					'io.swagger:swagger-jaxrs:1.5.21',    
+    				'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.9',
+					'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.9',    
+					'org.mongodb:mongo-java-driver:3.7.0',
+					'org.json:json:20180130',
+					'commons-io:commons-io:2.6',
+					'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.9.9',
+					'org.apache.commons:commons-lang3:3.9',
+					'org.apache.commons:commons-csv:1.7',
+					'com.scalified:tree:0.2.5',
+					'com.jayway.jsonpath:json-path:2.4.0',
+					'com.nimbusds:nimbus-jose-jwt:5.14',
+					'org.opengis.cite.xerces:xercesImpl-xsd11:2.12-beta-r1667115',
+					'pl.damianszczepanik:silencio:2.2.0',
+					'com.jayway.jsonpath:json-path:2.4.0',
+					'com.cronutils:cron-utils:9.0.0',
+					'com.itextpdf:html2pdf:2.1.3',
+					'org.apache.httpcomponents:httpclient:4.5.11',
+					'net.sf.jasperreports:jasperreports:6.11.0',
+			        'com.lowagie:itext:2.1.7'
+	compile(group: 'org.postgresql', name: 'postgresql', version: '42.2.9')
+ 	swaggerUI 		'org.webjars:swagger-ui:3.22.2'
+ 	swaggerCodegen  'io.swagger:swagger-codegen-cli:2.3.1' 	
+    testCompile     'junit:junit:4.12',
+                    'org.hamcrest:hamcrest-core:1.3',
+                    'de.bwaldvogel:mongo-java-server:1.21.0',
+                    'org.mockito:mockito-core:2.28.2'
+}
+
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/gen/java'
+        }
+    }
+}
+
+// apply enviroment properties, used on command line with gradle -PbuildProfile=test clean build
+if (!hasProperty('buildProfile')) ext.buildProfile = 'default'
+apply from: "profile-${buildProfile}.gradle"
+
+war {
+	archiveName = 'FurmaxTemplate.war' 
+}
+
+
+validateSwagger {
+    inputFile = file('src/main/resources/it/furmax/template/swagger/swagger.yaml')
+}
+
+test.dependsOn validateSwagger
+
+swaggerSources {
+	FurmaxTemplate {
+	    inputFile = file('src/main/resources/it/furmax/template/swagger/swagger.yaml')
+    	code {
+      		language = 'jaxrs-resteasy'
+      		configFile = file('src/main/resources/it/furmax/template/swagger/config.json')
+    	}	    
+		ui {
+            doLast {
+                // overwrite index.html for Swagger UI 2.x
+                copy {
+                    from 'index.html'
+                    into outputDir
+                }
+            }
+		}	    	
+	}
+}
+
+// parallel tests execution
+test {    
+      maxParallelForks = Runtime.runtime.availableProcessors()      
+}
+
+// Use this task to generate swaggerUi and copy under webapp/api-doc automatically
+task generateSwaggerUi(type: Copy) {
+	description 'copy swagger-ui generated files under webapp/api-doc'
+	group 'FurmaxTemplate'
+	from 'build/swagger-ui-FurmaxTemplate'
+	into 'src/main/webapp/api-doc/'
+}
+
+generateSwaggerUi.dependsOn generateSwaggerUIFurmaxTemplate
+
+task copyGenerateSwaggerServer(type: Copy) {
+	description 'copy generated file from swagger under src/gen/java'
+	from 'build/swagger-code-furmaxtemplate/src/gen/java'
+	into 'src/gen/java'
+}
+
+copyGenerateSwaggerServer.dependsOn generateSwaggerCode
+
+// Use this task to generate swaggerUi and copy under webapp/api-doc automatically
+task generateSwaggerServer(type: Delete){
+	description 'delete generated RestApplication from swagger'
+	group 'FurmaxTemplate'
+	delete 'src/gen/java/io/swagger/RestApplication.java'
+}
+
+generateSwaggerServer.dependsOn copyGenerateSwaggerServer
+
+
+//	allprojects {
+//		repositories {
+			//maven { url 'https://jitpack.io' }
+		//}
+	//}

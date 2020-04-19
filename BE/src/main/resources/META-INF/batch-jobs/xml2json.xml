@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="xml2json" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd" version="1.0">
+    <flow id="flow">
+	    <step id="step1" next="step2">
+	        <batchlet ref="xmlRead">
+	        	 <properties>
+	        	 	 <property name="read.fileName" value="#{jobParameters['read.fileName']}" />
+	        	 	 <property name="read.startingArrayElement" value="#{jobParameters['read.startingArrayElement']}" />
+	        	 	 <property name="read.customerId" value="#{jobParameters['read.customerId']}" />
+	        	 	 <property name="read.userId" value="#{jobParameters['read.userId']}" />
+	        	 	 <property name="read.flowId" value="#{jobParameters['read.flowId']}" />
+	        	 	 <property name="read.schemaId" value="#{jobParameters['read.schemaId']}" />
+	        	 	 <property name="read.collectionName" value="#{jobParameters['read.collectionName']}" />
+	        	 	 <property name="read.elementsCollection" value="#{jobParameters['read.elementsCollection']}" />
+	        	 	 <property name="read.databaseName" value="#{jobParameters['read.databaseName']}" />
+	        	 	 <property name="read.repeatElement" value="#{jobParameters['read.repeatElement']}" />
+	        	 	 <property name="read.extensionId" value="#{jobParameters['read.extensionId']}" />
+	        	 	 <property name="read.referencePeriod" value="#{jobParameters['read.referencePeriod']}" />
+	        	 	 <property name="read.referenceYear" value="#{jobParameters['read.referenceYear']}" />
+	        	 	 <property name="read.structureId" value="#{jobParameters['read.structureId']}" />
+	        	 	 <property name="read.companyId" value="#{jobParameters['read.companyId']}" />
+	        	 	 <property name="read.regionId" value="#{jobParameters['read.regionId']}" />
+	        	 	 <property name="read.importTest" value="#{jobParameters['read.importTest']}" />
+	        	 	 <property name="read.importXml" value="#{jobParameters['read.importXml']}" />
+	        	 	 <property name="read.errorReportTxt" value="#{jobParameters['read.errorReportTxt']}" />
+	        	 	 <property name="read.txtWrongRecord" value="#{jobParameters['read.txtWrongRecord']}" />
+	        	 </properties>
+	        </batchlet>
+	    </step>
+	    <step id="step2">
+	    	<batchlet ref="notificationBatchlet">
+	    	</batchlet>        
+	    </step>
+    </flow>
+</job>
+

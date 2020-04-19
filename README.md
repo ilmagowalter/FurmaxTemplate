@@ -1,1 +1,1 @@
-# template
+# Gestione contatori analogici

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="approveOrNotJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd" version="1.0">
+    <flow id="flow">
+	    <step id="step1" next="step2">
+	        <batchlet ref="approveOrNotBatchlet">
+	        	 <properties>
+	        	 	 <property name="approveOrNot.userId" value="#{jobParameters['approveOrNot.userId']}" />
+	        	 	 <property name="approveOrNot.jobIdSessioneControllo" value="#{jobParameters['approveOrNot.jobIdSessioneControllo']}" />
+	        	 	 <property name="approveOrNot.flowId" value="#{jobParameters['approveOrNot.flowId']}" />
+	        	 	 <property name="approveOrNot.schemaId" value="#{jobParameters['approveOrNot.schemaId']}" />
+	        	 	 <property name="approveOrNot.type" value="#{jobParameters['approveOrNot.type']}" />
+
+	        	 	 <property name="approveOrNot.filter.fromInsertDate" value="#{jobParameters['approveOrNot.filter.fromInsertDate']}" />
+	        	 	 <property name="approveOrNot.filter.toInsertDate" value="#{jobParameters['approveOrNot.filter.toInsertDate']}" />
+	        	 	 <property name="approveOrNot.filter.usersId" value="#{jobParameters['approveOrNot.filter.usersId']}" />
+	        	 	 <property name="approveOrNot.filter.filenames" value="#{jobParameters['approveOrNot.filter.filenames']}" />
+	        	 	 <property name="approveOrNot.filter.state" value="#{jobParameters['approveOrNot.filter.state']}" />
+	        	 	 <property name="approveOrNot.filter.version" value="#{jobParameters['approveOrNot.filter.version']}" />
+	        	 	 <property name="approveOrNot.filter.fromReferencePeriod" value="#{jobParameters['approveOrNot.filter.fromReferencePeriod']}" />
+	        	 	 <property name="approveOrNot.filter.toReferencePeriod" value="#{jobParameters['approveOrNot.filter.toReferencePeriod']}" />
+	        	 	 <property name="approveOrNot.filter.fromReferenceYear" value="#{jobParameters['approveOrNot.filter.fromReferenceYear']}" />
+	        	 	 <property name="approveOrNot.filter.toReferenceYear" value="#{jobParameters['approveOrNot.filter.toReferenceYear']}" />	        	 	 
+	        	 	 <property name="approveOrNot.filter.body" value="#{jobParameters['approveOrNot.filter.body']}" />	        	 	 
+	        	 	 <property name="approveOrNot.filter.objectIds" value="#{jobParameters['approveOrNot.filter.objectIds']}" />	        	 	 
+
+	        	 	 <property name="approveOrNot.filter.jobIdAzione" value="#{jobParameters['approveOrNot.filter.jobIdAzione']}" />
+	        	 	 <property name="approveOrNot.filter.listaAzioni" value="#{jobParameters['approveOrNot.filter.listaAzioni']}" />
+	        	 	 <property name="approveOrNot.filter.listaLivelliUtente" value="#{jobParameters['approveOrNot.filter.listaLivelliUtente']}" />
+	        	 </properties>
+	        </batchlet>
+	    </step>
+	    <step id="step2">
+	    	<batchlet ref="notificationBatchlet">
+	    	</batchlet>        
+	    </step>
+    </flow>
+</job>
+

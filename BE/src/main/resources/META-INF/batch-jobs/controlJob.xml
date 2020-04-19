@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="controlJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd" version="1.0">
+    <flow id="flow">
+	    <step id="step1" next="step2">
+	        <batchlet ref="controlBatchlet">
+	        	 <properties>
+	        	 	 <property name="control.customerId" value="#{jobParameters['control.customerId']}" />
+	        	 	 <property name="control.userId" value="#{jobParameters['control.userId']}" />
+	        	 	 <property name="control.controlsId" value="#{jobParameters['control.controlsId']}" />
+	        	 	 <property name="control.databaseName" value="#{jobParameters['control.databaseName']}" />	        	 	 
+	        	 	 <property name="control.collectionName" value="#{jobParameters['control.collectionName']}" />
+	        	 	 <property name="control.elementsCollection" value="#{jobParameters['control.elementsCollection']}" />
+	        	 	 <property name="control.schemaId" value="#{jobParameters['control.schemaId']}" />
+	        	 	 <property name="control.flowId" value="#{jobParameters['control.flowId']}" />
+	        	 	 <property name="control.description" value="#{jobParameters['control.description']}" />	        	 	 
+	        	 	 <property name="control.validating" value="#{jobParameters['control.validating']}" />
+	        	 	 
+	        	 	 <property name="control.filter.fromDate" value="#{jobParameters['control.filter.fromDate']}" />
+	        	 	 <property name="control.filter.toDate" value="#{jobParameters['control.filter.toDate']}" />
+	        	 	 <property name="control.filter.usersId" value="#{jobParameters['control.filter.usersId']}" />
+	        	 	 <property name="control.filter.filenames" value="#{jobParameters['control.filter.filenames']}" />
+	        	 	 <property name="control.filter.version" value="#{jobParameters['control.filter.version']}" />
+	        	 	 <property name="control.filter.state" value="#{jobParameters['control.filter.state']}" />
+	        	 	 <property name="control.filter.body" value="#{jobParameters['control.filter.body']}" />
+	        	 	 
+	        	 	 <property name="control.yearFrom" value="#{jobParameters['control.yearFrom']}" />
+	        	 	 <property name="control.yearTo" value="#{jobParameters['control.yearTo']}" />
+	        	 	 <property name="control.periodFrom" value="#{jobParameters['control.periodFrom']}" />
+	        	 	 <property name="control.periodTo" value="#{jobParameters['control.periodTo']}" />
+
+	        	 	 <property name="control.jobIdAzione" value="#{jobParameters['control.jobIdAzione']}" />
+	        	 	 <property name="control.listaAzioni" value="#{jobParameters['control.listaAzioni']}" />
+	        	 	 <property name="control.listaLivelliUtente" value="#{jobParameters['control.listaLivelliUtente']}" />
+	        	 </properties>
+	        </batchlet>
+	    </step>
+	    <step id="step2">
+	    	<batchlet ref="notificationBatchlet">
+	    	</batchlet>        
+	    </step>
+    </flow>
+</job>
+

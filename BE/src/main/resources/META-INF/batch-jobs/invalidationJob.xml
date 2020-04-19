@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="invalidationJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd" version="1.0">
+    <flow id="flow">
+	    <step id="step1" next="step2">
+	        <batchlet ref="invalidationBatchlet">
+	        	 <properties>
+	        	 	 <property name="invalidation.userId" value="#{jobParameters['invalidation.userId']}" />
+	        	 	 <property name="invalidation.jobIdSessioneControllo" value="#{jobParameters['invalidation.jobIdSessioneControllo']}" />
+	        	 	 <property name="invalidation.flowId" value="#{jobParameters['invalidation.flowId']}" />
+	        	 	 <property name="invalidation.schemaId" value="#{jobParameters['invalidation.schemaId']}" />
+	        	 	 <property name="invalidation.invalidationType" value="#{jobParameters['invalidation.invalidationType']}" />
+
+	        	 	 <property name="invalidation.filter.fromInsertDate" value="#{jobParameters['invalidation.filter.fromInsertDate']}" />
+	        	 	 <property name="invalidation.filter.toInsertDate" value="#{jobParameters['invalidation.filter.toInsertDate']}" />
+	        	 	 <property name="invalidation.filter.usersId" value="#{jobParameters['invalidation.filter.usersId']}" />
+	        	 	 <property name="invalidation.filter.filenames" value="#{jobParameters['invalidation.filter.filenames']}" />
+	        	 	 <property name="invalidation.filter.state" value="#{jobParameters['invalidation.filter.state']}" />
+	        	 	 <property name="invalidation.filter.version" value="#{jobParameters['invalidation.filter.version']}" />
+	        	 	 <property name="invalidation.filter.fromReferencePeriod" value="#{jobParameters['invalidation.filter.fromReferencePeriod']}" />
+	        	 	 <property name="invalidation.filter.toReferencePeriod" value="#{jobParameters['invalidation.filter.toReferencePeriod']}" />
+	        	 	 <property name="invalidation.filter.fromReferenceYear" value="#{jobParameters['invalidation.filter.fromReferenceYear']}" />
+	        	 	 <property name="invalidation.filter.toReferenceYear" value="#{jobParameters['invalidation.filter.toReferenceYear']}" />	        	 	 
+	        	 	 <property name="invalidation.filter.body" value="#{jobParameters['invalidation.filter.body']}" />	        	 	 
+	        	 	 <property name="invalidation.filter.objectIds" value="#{jobParameters['invalidation.filter.objectIds']}" />	        	 	 
+
+	        	 	 <property name="invalidation.filter.jobIdAzione" value="#{jobParameters['invalidation.filter.jobIdAzione']}" />
+	        	 	 <property name="invalidation.filter.listaAzioni" value="#{jobParameters['invalidation.filter.listaAzioni']}" />
+	        	 	 <property name="invalidation.filter.listaLivelliUtente" value="#{jobParameters['invalidation.filter.listaLivelliUtente']}" />
+	        	 </properties>
+	        </batchlet>
+	    </step>
+	    <step id="step2">
+	    	<batchlet ref="notificationBatchlet">
+	    	</batchlet>        
+	    </step>
+    </flow>
+</job>
+
