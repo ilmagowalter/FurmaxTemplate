@@ -9,6 +9,8 @@ import { GearbestService } from './services/gearbest.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BrowserModule } from '@angular/platform-browser';
+import { LoginService } from '../swagger';
+import { SwaggerModule } from '../swagger/swagger.module';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { BrowserModule } from '@angular/platform-browser';
     BrowserModule,
     TabsModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SwaggerModule
   ],
   exports: [
     SidebarToggleDirective,
@@ -35,6 +38,8 @@ import { BrowserModule } from '@angular/platform-browser';
     HttpClientModule,
     NgxPaginationModule
   ],
-  providers: [GearbestService]
+  providers: [
+    GearbestService
+  ]
 })
 export class SharedModule { }

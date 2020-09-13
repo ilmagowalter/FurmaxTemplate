@@ -34,7 +34,7 @@ public class LoginApi  {
     @Inject LoginApiService service;
 
     @POST
-    @Path("/")
+    
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
     @io.swagger.annotations.ApiOperation(value = "Effettua il login", notes = "Valida le credenziali fornite ed effettua l'accesso, ritornando la apiKey da utilizzare nelle altre chiamate", response = InformazioniAccesso.class, tags={ "login", })

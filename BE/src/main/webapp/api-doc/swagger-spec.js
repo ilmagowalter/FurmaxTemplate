@@ -16,7 +16,7 @@ window.swaggerSpec={
   },
   "host" : "localhost:8080",
   "paths" : {
-    "/login/" : {
+    "/login" : {
       "post" : {
         "summary" : "Effettua il login",
         "description" : "Valida le credenziali fornite ed effettua l'accesso, ritornando la apiKey da utilizzare nelle altre chiamate",
