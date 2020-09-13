@@ -1,0 +1,90 @@
+@import "~ngx-tabset/ngx-tabset";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/font-awesome/css/font-awesome.min.css";
+@import "variables";
+
+//
+// Headerbar
+//
+.headerbar {
+  height: $headerbar-height;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-y: hidden;
+  background-color: #fff;
+  width: 100%;
+  border-bottom: 1px solid #c8ced3;
+
+  .headerbar-row {
+    height: $headerbar-height;
+  }
+
+}
+
+//
+// Main
+//
+.main {
+  margin-left: $sidebar-width;
+  margin-top: $headerbar-height;
+  overflow: auto;
+  background-color: #fff;
+  transition: all 0.3s;
+}
+
+.home-img {
+  height: 400px;
+}
+
+//
+// Sidebar
+//
+.sidebar {
+  height: 100%;
+  width: $sidebar-width;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  margin-top: $headerbar-height;
+  background: #7386D5;
+  color: #fff;
+  transition: all 0.3s;
+
+  ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+  }
+
+  a,
+  a:hover,
+  a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  ul li a {
+    padding: 10px;
+    display: block;
+  }
+
+  ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+  }
+}
+
+.sidebar-hidden {
+  .sidebar {
+    margin-left: - $sidebar-width;
+  }
+
+  .main {
+    margin-left: 0px;
+  }
+}
+

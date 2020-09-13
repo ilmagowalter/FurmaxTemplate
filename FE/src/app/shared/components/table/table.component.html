@@ -1,0 +1,25 @@
+<div class="row text-center">
+  <div class="col-12">
+    <!-- uuid -> {{uuid}} -->
+    <pagination-controls [id]="uuid" (pageChange)="pageChange($event)"></pagination-controls>
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-sm table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th *ngFor="let column of columns" [title]="column.tooltip">{{column.label}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of rows | paginate: { id: uuid, itemsPerPage: 5, currentPage: currentPage }">
+        <td *ngFor="let column of columns" [title]="row[column.tooltip]">{{row[column.label]}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row text-center">
+  <div class="col-12">
+    <pagination-controls [id]="uuid" (pageChange)="pageChange($event)"></pagination-controls>
+  </div>
+</div>
