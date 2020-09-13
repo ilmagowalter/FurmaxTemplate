@@ -1,10 +1,4 @@
-CREATE USER furmaxtemplate WITH
- LOGIN
- SUPERUSER
- CREATEDB
- CREATEROLE
- REPLICATION;
-
+CREATE ROLE furmaxtemplate WITH LOGIN SUPERUSER CREATEDB CREATEROLE INHERIT REPLICATION CONNECTION LIMIT -1 PASSWORD 'furmaxtemplate';
 GRANT postgres TO furmaxtemplate;
 
 COMMENT ON ROLE furmaxtemplate IS 'utente furmaxtemplate';

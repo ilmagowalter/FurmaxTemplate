@@ -36,7 +36,7 @@ COMMENT ON SEQUENCE seq_ana_users IS 'per tabella ana_users';
 
 INSERT INTO public.ana_users
 (id, username, email, firstname, lastname, phone, "password", enabled, last_change_pwd, last_connect_time, "version", insert_time, update_time, id_user_insert, id_user_update)
-VALUES(1, 'mfurnari', 'massimo.furnari@gpi.it', 'Massimo', 'Furnari', NULL, '8f225ddd400f8a0d6b36b85c6ccecc0436cea6a8e32f203fc5cef7932ffe5a0788eef1a1faf4acb307c5f831292574d6d05d3cad23f2468577b41c4c31ffc37a', true, current_timestamp, current_timestamp, 1, current_timestamp, current_timestamp, 1, 1);
+VALUES(1, 'mfurnari', 'massimo_furnari@yahoo.it', 'Massimo', 'Furnari', NULL, '8f225ddd400f8a0d6b36b85c6ccecc0436cea6a8e32f203fc5cef7932ffe5a0788eef1a1faf4acb307c5f831292574d6d05d3cad23f2468577b41c4c31ffc37a', true, current_timestamp, current_timestamp, 1, current_timestamp, current_timestamp, 1, 1);
 
 -----TABELLA PARAMETRI DI SISTEMA
 CREATE TABLE public.cfg_system_parameters (

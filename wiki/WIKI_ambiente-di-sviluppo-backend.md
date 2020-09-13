@@ -1,27 +1,7 @@
-# Preparazione ambiente di sviluppo
+# Preparazione ambiente di sviluppo Backend
 
-Di seguito la spiegazione di come configurare l'ambiente di sviluppo
+Di seguito i passi per configurare l'ambiente di sviluppo Backend
 
-# Java
-
-Scaricare java jdk versione "jdk1.8.0_171" ed installarla.
-
-Aggiungere ai percorsi presenti nella variabile di ambiente PATH il percorso di installazione
-
-"C:\Program Files\Java\jdk1.8.0_171\bin"
-
-e creare variabile di ambiente di sistema 
-
-JAVA_HOME=C:\Program Files\Java\jdk1.8.0_171
-
-# Postgres
-
-* scaricare Postgres 10.3 per windows
-* installarlo
-* scaricare il driver postgresql-42.2.2.jar ( https://jdbc.postgresql.org/download.html#others - colonna JDBC 4.2 )
-* installare un query manager tipo pgadmin oppure Dbeaver
-* creare il database FurmaxTemplate con user FurmaxTemplate e password FurmaxTemplate
- 
 # Git
 
 * Scaricare Git da https://git-scm.com/download/win  ( 64-bit Git for Windows Setup )
@@ -31,10 +11,32 @@ JAVA_HOME=C:\Program Files\Java\jdk1.8.0_171
 
 git clone https://github.com/ilmagowalter/FurmaxTemplate.git
 
+# Java
+
+* Scaricare da https://adoptopenjdk.net/ "OpenJDK 11 (LTS)/HotSpot"
+  * versione al momento della scrittura -> OpenJDK11U-jdk_x64_windows_hotspot_11.0.8_10.msi
+
+Aggiungere ai percorsi presenti nella variabile di ambiente PATH il percorso di installazione
+
+"C:\Program Files\AdoptOpenJDK\jdk-11.0.8.10-hotspot\bin"
+
+e creare variabile di ambiente di sistema 
+
+JAVA_HOME=C:\Program Files\AdoptOpenJDK\jdk-11.0.8.10-hotspot\
+
+# Postgres
+
+* scaricare Postgres 12.4 per windows da https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+* installarlo includendo pgadmin
+* scaricare il driver postgresql-42.2.2.jar ( https://jdbc.postgresql.org/download.html#others - colonna JDBC 4.2 )
+* opzionale: installare Dbeaver ( Query manager )
+* eseguire tutti gli script presenti nella cartella DB
+ 
 # Eclipse
 
-* Scaricare da https://www.eclipse.org/downloads/ "Eclipse IDE 2020‑03"
-* Lanciare l'installer e selezionare "Eclipse ODE for Enterprise Kava Developers"
+* Scaricare da https://www.eclipse.org/downloads/ "Eclipse IDE 2020‑06"
+* Lanciare l'installer come amministratore e selezionare "Eclipse IDE for Enterprise Java Developers"
+* Aggiornare l'installer se viene visualizzato un punto esclamativo in alto a destra
 * Aprire il file eclipse.ini che si trova nella cartella di installazione di eclipse e sostituire ed impostare i seguenti valori al posto di quelli esistenti:
   * -Xms1024m
   * -Xmx2048m
@@ -85,7 +87,7 @@ selezionare restart now
 
 ![](image/ambiente-di-sviluppo14.png)
 
-selezionare Wildfly 17
+selezionare Wildfly 20
 
 ![](image/ambiente-di-sviluppo15.png)
 
@@ -108,21 +110,23 @@ selezionare Wildfly 17
 * avviare wildfly verificando nella console che parta correttamente
 * stoppare Wildfly
 
-* eseguire [Configurazione Wildfly 17](#Wildfly)
-
-
+* eseguire [Configurazione Wildfly 20](#Wildfly)
 
 * importare il progetto su eclipse come existing gradle project
+* impostare la compatibilità di compilazione con java 1.8
 
-* cliccare su Wildfly 17 -> add and remove, e aggiungere FlowManager2
+![](image/ambiente-di-sviluppo20_1.png)
+
+* Tasto Dx sul progetto -> gradle -> refresh gradle project
+* cliccare su Wildfly 20 -> add and remove, e aggiungere FurmaxTemplate
 
 # Wildfly
 
-* aggiungere alla variabile di ambiente PATH il percorso di installazione di Wildfly ( D:\Workspace\AppServer\wildfly-17.0.1.Final\bin )
+* aggiungere alla variabile di ambiente PATH il percorso di installazione di Wildfly ( D:\Workspace\AppServer\wildfly-20.0.1.Final\bin )
 * avviare Wildfly ( anche da eclipse )
 * da browser verificare che wildfly risponda correttamente all’url di default: http://localhost:9990
 * stoppare Wildfly
-* da linea di comando andare nella cartella di installazione Wildfy/bin ( es. D:\Workspace\AppServer\wildfly-17.0.1.Final\bin )
+* da linea di comando andare nella cartella di installazione Wildfy/bin ( es. D:\Workspace\AppServer\wildfly-20.0.1.Final\bin )
 * tramite add-user.bat aggiungere l’utente di admin con password **furmax2020**
 
 ![](image/ambiente-di-sviluppo21.png)
@@ -140,7 +144,7 @@ module add --name=org.postgresql.Driver --resources=postgresql-42.2.2.jar --depe
 
 /subsystem=datasources/jdbc-driver=postgres:add(driver-name="postgres",driver-module-name="org.postgresql.Driver",driver-class-name=org.postgresql.Driver)
 
-data-source add --jndi-name=java:/PostgresDS --name=PostgresDS --connection-url=jdbc:postgresql://localhost:5432/furmaxtemplate --driver-name=postgres --user-name=furmaxTemplate –password=furmaxtemplate
+data-source add --jndi-name=java:/PostgresDS --name=PostgresDS --connection-url=jdbc:postgresql://localhost:5432/furmaxtemplate --driver-name=postgres --user-name=furmaxtemplate –password=furmaxtemplate
 
 ```
 
@@ -158,11 +162,11 @@ org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker
 org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter
 ```
 
-![](image/ambiente-di-sviluppo22.png)
+![](image/ambiente-di-sviluppo22_1.png)
 
 ## configurazione token authentication
 
-* da linea di comando andare nella cartella di installazione Wildfy/standalone/configuration ( es. D:\Workspace\AppServer\wildfly-17.0.1.Final\standalone\configuration )
+* da linea di comando andare nella cartella di installazione Wildfy/standalone/configuration ( es. D:\Workspace\AppServer\wildfly-20.0.1.Final\standalone\configuration )
 * eseguire i seguenti comandi
 
 ```
