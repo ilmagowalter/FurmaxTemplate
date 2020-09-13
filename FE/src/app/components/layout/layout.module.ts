@@ -5,6 +5,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderbarComponent } from './headerbar/headerbar.component';
 import { HomeComponent } from './home/home.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { ContainerComponent } from './container/container.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
     SidebarComponent,
     HeaderbarComponent,
     HomeComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    ContainerComponent
   ]
 })
 export class LayoutModule { }

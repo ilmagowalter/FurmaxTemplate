@@ -9,8 +9,9 @@ import { GearbestService } from './services/gearbest.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BrowserModule } from '@angular/platform-browser';
-import { LoginService } from '../swagger';
 import { SwaggerModule } from '../swagger/swagger.module';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from '../redux/effects/auth.effects';
 
 
 @NgModule({
@@ -26,7 +27,9 @@ import { SwaggerModule } from '../swagger/swagger.module';
     TabsModule,
     HttpClientModule,
     NgxPaginationModule,
-    SwaggerModule
+    SwaggerModule,
+    EffectsModule.forFeature([AuthEffects]),
+
   ],
   exports: [
     SidebarToggleDirective,
