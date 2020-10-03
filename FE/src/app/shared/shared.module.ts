@@ -12,6 +12,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SwaggerModule } from '../swagger/swagger.module';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '../redux/effects/auth.effects';
+import { AuthService } from './services/auth.services';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { AuthEffects } from '../redux/effects/auth.effects';
     NgxPaginationModule
   ],
   providers: [
-    GearbestService
+    GearbestService,
+    AuthService
   ]
 })
 export class SharedModule { }

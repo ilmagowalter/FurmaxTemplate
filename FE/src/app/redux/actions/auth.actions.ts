@@ -11,7 +11,7 @@ export class TryLoginAction implements Action {
   readonly type = AuthActionType.TRY_LOGIN;
 
   constructor(public payload: {
-    auth: Autenticazione
+    authentication: Autenticazione
   }) { }
 }
 

@@ -5,6 +5,7 @@ import { GearbestComponent } from './components/gearbest/gearbest.component';
 import { NotfoundComponent } from './components/layout/notfound/notfound.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { ContainerComponent } from './components/layout/container/container.component';
+import { AuthGuard } from './shared/guard/auth-guard.service';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {
     path: '',
     component: ContainerComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -38,6 +40,9 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    AuthGuard,
+  ]
 })
 export class AppRoutingModule { }
